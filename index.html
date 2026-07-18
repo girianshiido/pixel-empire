@@ -1,0 +1,242 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta name="theme-color" content="#17152f">
+  <meta name="description" content="Pixel Empire, un jeu incrémental de création et de vente de jeux vidéo.">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="format-detection" content="telephone=no">
+  <title>Pixel Empire</title>
+  <link rel="icon" href="icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="world" aria-hidden="true">
+    <div class="grid-floor"></div>
+    <div class="pixel-star s1"></div><div class="pixel-star s2"></div><div class="pixel-star s3"></div>
+    <div class="city"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+  </div>
+
+  <main class="game-shell">
+    <header class="topbar">
+      <a class="brand" href="#" aria-label="Pixel Empire, revenir en haut">
+        <span class="brand-mark">P</span>
+        <span><strong>Pixel Empire</strong><small>Studio et édition</small></span>
+      </a>
+      <div class="header-actions">
+        <button class="icon-button" id="soundButton" type="button" aria-label="Désactiver les sons" aria-pressed="true">♪</button>
+        <button class="icon-button" id="helpButton" type="button" aria-label="Afficher l’aide">?</button>
+      </div>
+    </header>
+
+    <section class="resource-card" aria-live="polite">
+      <div class="money-resource"><span class="resource-icon">¤</span><p><small>Trésorerie</small><strong id="moneyCount">0 ¤</strong></p></div>
+      <div class="resource-divider"></div>
+      <div><small>Copies en attente</small><strong id="stockCount">0</strong></div>
+      <div class="resource-divider"></div>
+      <div class="income-resource"><small>Revenus estimés</small><strong><span class="live-dot"></span><span id="revenueRate">0 ¤</span>/s</strong><em id="incomeBreakdown">Ventes 0 · Royalties 0</em></div>
+      <div class="resource-divider optional-divider"></div>
+      <div class="critic-resource"><small>Réputation presse</small><strong><span id="criticReputation">0</span>/100</strong></div>
+      <div class="resource-divider optional-divider"></div>
+      <div class="reputation-resource"><small>Héritage</small><strong>★ <span id="reputationCount">0</span></strong></div>
+    </section>
+
+    <button class="trend-banner" id="trendBanner" type="button">
+      <span>↗</span><p><small>Tendance actuelle</small><strong id="trendText">Le marché se réveille…</strong></p><b id="trendTimer">—</b>
+    </button>
+
+    <div class="layout">
+      <aside class="studio-panel" aria-label="Studio de développement">
+        <div class="studio-status"><span class="status-dot"></span><b id="studioStatus">Petit studio indépendant</b></div>
+        <div class="developer-stage">
+          <div class="screen-glow"></div>
+          <div class="desk-line"></div>
+          <button class="developer-button" id="developerButton" type="button" aria-label="Créer des copies de jeux vidéo">
+            <span class="developer">🧑‍💻</span>
+            <span class="screen-pixels"><i></i><i></i><i></i></span>
+          </button>
+        </div>
+        <p class="click-value">Développement manuel <b>+<span id="perClick">1</span> copie</b><small id="manualShare">Valeur fixe</small></p>
+
+        <section class="sales-card">
+          <div class="sales-top"><span>Distribution automatique</span><b id="salesCapacity">0 copie/s</b></div>
+          <div class="sales-track"><i id="salesFill"></i><span>▣</span><span>▣</span><span>▣</span></div>
+          <small>Prix moyen : <b id="copyPrice">3 ¤</b> par copie</small>
+        </section>
+
+        <section class="project-card" id="projectCard">
+          <div class="project-card-top"><span>🎮 Prochain jeu</span><b id="projectTimer">—</b></div>
+          <strong id="projectTitle">Le premier pitch arrive…</strong>
+          <p id="projectDescription">Choisis bientôt son genre et son budget.</p>
+          <div class="project-progress"><i id="projectFill"></i></div>
+          <button id="projectButton" type="button" disabled>Préparer le pitch</button>
+        </section>
+
+        <section class="studio-stats">
+          <div><span>Copies produites</span><b id="lifetimeCopies">0</b></div>
+          <div><span>Copies vendues</span><b id="copiesSold">0</b></div>
+          <div><span>Jeux publiés</span><b id="gamesReleased">0</b></div>
+          <div><span>Consoles</span><b id="totalConsoles">0</b></div>
+        </section>
+
+        <button class="prestige-teaser" id="prestigeButton" type="button" disabled>
+          <span>★</span><p><small>Nouvelle génération</small><strong id="prestigeTitle">Héritage inaccessible</strong><em id="prestigeProgress">Atteins 1 M¤ sur cette partie</em></p><b>→</b>
+        </button>
+      </aside>
+
+      <section class="management-panel">
+        <nav class="tabs" aria-label="Gestion de l’entreprise">
+          <button type="button" class="active" data-tab="consoles"><span>▣</span> Consoles <b id="consoleBadge">4 / 24</b></button>
+          <button type="button" data-tab="upgrades"><span>✦</span> Améliorations <b id="upgradeBadge">0</b></button>
+          <button type="button" data-tab="team"><span>♟</span> Équipe <b id="teamBadge">0 / 3</b></button>
+          <button type="button" data-tab="genres"><span>◫</span> Genres <b id="genreBadge">5</b></button>
+          <button type="button" data-tab="catalog"><span>☷</span> Catalogue <b id="catalogBadge">0</b></button>
+          <button type="button" data-tab="career"><span>🏆</span> Carrière <b id="careerBadge">0</b></button>
+        </nav>
+
+        <div class="tab-page active" id="consolesPage">
+          <div class="panel-head">
+            <div><p class="eyebrow">Parc de production</p><h1>Consoles et kits de développement</h1><small>Chaque console produit automatiquement des copies.</small></div>
+            <div class="buy-modes" aria-label="Quantité d’achat">
+              <button type="button" data-mode="1" class="active">×1</button><button type="button" data-mode="10">×10</button><button type="button" data-mode="100">×100</button><button type="button" data-mode="max">Max</button>
+            </div>
+          </div>
+          <div class="console-list" id="consoleList"></div>
+        </div>
+
+        <div class="tab-page" id="upgradesPage" hidden>
+          <div class="panel-head"><div><p class="eyebrow">R&amp;D et marketing</p><h1>Améliorations du studio</h1><small>Les améliorations achetées disparaissent de la liste.</small></div></div>
+          <div class="upgrade-list" id="upgradeList"></div>
+          <div class="empty-state" id="upgradeEmpty" hidden><span>✓</span><strong>Tout est installé pour le moment</strong><p>De nouvelles améliorations apparaîtront avec les revenus du studio.</p></div>
+        </div>
+
+        <div class="tab-page" id="teamPage" hidden>
+          <div class="panel-head"><div><p class="eyebrow">Talents du studio</p><h1>Équipe de création</h1><small>Un spécialiste actif par branche. Les autres restent disponibles en réserve.</small></div><div class="team-capacity"><small>Places actives</small><b id="teamCapacity">0 / 3</b></div></div>
+          <section class="team-section"><div class="subsection-head"><div><p class="eyebrow">Projet suivant</p><h2>Équipe active</h2></div><small id="teamUnlockHint">La réputation débloque de nouvelles places.</small></div><div class="team-list" id="activeTeamList"></div></section>
+          <section class="team-section"><div class="subsection-head"><div><p class="eyebrow">Contrats signés</p><h2>Réserve</h2></div><small id="rosterCapacity">0 / 7 contrats</small></div><div class="team-list" id="reserveTeamList"></div></section>
+          <section class="team-section recruitment-section"><div class="subsection-head"><div><p class="eyebrow">Marché du travail</p><h2>Recrutement</h2></div><small>Les meilleurs profils exigent une forte réputation.</small></div><div class="recruit-list" id="recruitList"></div></section>
+        </div>
+
+        <div class="tab-page" id="genresPage" hidden>
+          <div class="panel-head"><div><p class="eyebrow">Savoir-faire éditorial</p><h1>Genres de jeux</h1><small>Publier un jeu rapporte de l’expérience à son genre et améliore tous ses futurs revenus.</small></div></div>
+          <div class="genre-list" id="genreList"></div>
+        </div>
+
+        <div class="tab-page" id="catalogPage" hidden>
+          <div class="panel-head"><div><p class="eyebrow">Jeux déjà publiés</p><h1>Catalogue du studio</h1><small>Les anciens titres continuent à verser des royalties.</small></div><div class="catalog-total"><small>Royalties</small><b id="catalogRoyalty">0 ¤/s</b></div></div>
+          <section class="franchise-section" id="franchiseSection" hidden>
+            <div class="subsection-head"><div><p class="eyebrow">Licences maison</p><h2>Franchises</h2></div><small>Une série connue facilite les ventes, mais trop de suites fatiguent le public.</small></div>
+            <div class="franchise-list" id="franchiseList"></div>
+          </section>
+          <div class="catalog-list" id="catalogList"></div>
+          <div class="empty-state" id="catalogEmpty"><span>🎮</span><strong>Aucun jeu publié</strong><p>Le premier pitch apparaîtra très bientôt dans le studio.</p></div>
+        </div>
+
+        <div class="tab-page" id="careerPage" hidden>
+          <div class="panel-head"><div><p class="eyebrow">Histoire du studio</p><h1>Carrière et Panthéon</h1><small>Les récompenses ouvrent des bonus permanents. Les chefs-d’œuvre rapprochent du projet ultime.</small></div><div class="trophy-total"><small>Trophées</small><b>🏆 <span id="trophyCount">0</span></b></div></div>
+          <section class="final-challenge" id="finalChallenge">
+            <div class="final-challenge-head"><span>🌌</span><div><p class="eyebrow">Défi final</p><h2 id="finalChallengeTitle">Le Projet Ultime</h2><small id="finalChallengeSubtitle">Construis un héritage capable de traverser toutes les générations.</small></div></div>
+            <div class="final-requirements" id="finalRequirements"></div>
+            <button id="startFinalProject" type="button" disabled>Projet ultime verrouillé</button>
+          </section>
+          <section class="career-section"><div class="subsection-head"><div><p class="eyebrow">18 disciplines</p><h2>Panthéon des genres</h2></div><small>Presse et joueurs doivent tous deux atteindre 90/100.</small></div><div class="legend-grid" id="legendGrid"></div></section>
+          <section class="career-section"><div class="subsection-head"><div><p class="eyebrow">Bonus permanents</p><h2>Récompenses de carrière</h2></div><small>Chaque trophée rapproche du prochain avantage.</small></div><div class="reward-list" id="rewardList"></div></section>
+          <section class="career-section"><div class="subsection-head"><div><p class="eyebrow">Palmarès</p><h2>Prix remportés</h2></div><small id="awardProgress">0 / 12 récompenses</small></div><div class="award-grid" id="awardGrid"></div></section>
+          <section class="career-section"><div class="subsection-head"><div><p class="eyebrow">Vie du studio</p><h2>Événements récents</h2></div><small id="eventBonusSummary">Aucun bonus temporaire</small></div><div class="event-history" id="eventHistory"></div></section>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <dialog id="projectDialog" class="project-dialog">
+    <button class="dialog-close" data-close="projectDialog" type="button" aria-label="Fermer">×</button>
+    <p class="eyebrow">Nouveau projet</p><h2>Quel jeu allons-nous créer ?</h2>
+    <div class="trend-callout"><span>↗ Marché</span><b id="dialogTrend">—</b></div>
+    <label class="field-label" for="genreSelect">Genre</label>
+    <select id="genreSelect"></select>
+    <div class="genre-preview" id="genrePreview"></div>
+    <section class="project-team-summary" id="projectTeamSummary"></section>
+    <fieldset class="franchise-fieldset"><legend>Licence</legend><div class="franchise-choice-grid" id="franchiseChoiceGrid"></div><p class="franchise-hint" id="franchiseHint"></p></fieldset>
+    <fieldset class="platform-fieldset"><legend>Plateformes ciblées <small>1 à 3</small></legend><div class="platform-grid" id="platformGrid"></div><p class="platform-hint" id="platformHint"></p></fieldset>
+    <fieldset class="budget-fieldset"><legend>Budget de production</legend><div class="budget-grid" id="budgetGrid"></div></fieldset>
+    <fieldset class="marketing-fieldset"><legend>Campagne marketing</legend><div class="marketing-grid" id="marketingGrid"></div><p class="marketing-hint" id="marketingHint"></p></fieldset>
+    <div class="project-estimate">
+      <div><small>Investissement</small><b id="estimateCost">0 ¤</b></div>
+      <div><small>Développement</small><b id="estimateTime">0 s</b></div>
+      <div><small>Qualité prévue</small><b id="estimateQuality">—</b></div>
+      <div><small>Honoraires équipe</small><b id="estimateTeamFee">0 ¤</b></div>
+      <div><small>Ventes de lancement</small><b id="estimateCopies">0</b></div>
+      <div><small>Royalties de base</small><b id="estimateRoyalty">0 ¤/s</b></div>
+    </div>
+    <button class="primary-button" id="startProjectButton" type="button">Lancer le développement</button>
+  </dialog>
+
+  <dialog id="prestigeDialog">
+    <button class="dialog-close" data-close="prestigeDialog" type="button" aria-label="Fermer">×</button>
+    <div class="prestige-star">★</div><p class="eyebrow">Nouvelle génération</p><h2>Transformer le succès en héritage ?</h2>
+    <p>Le studio repart avec une nouvelle équipe. Les niveaux de genres, les succès et l’héritage sont conservés.</p>
+    <p class="prestige-note" id="prestigeNote">L’héritage renforce durablement la production, avec un rendement décroissant.</p>
+    <div class="prestige-equation"><div><small>Réinitialisé</small><b>Crédits, équipe,<br>consoles et catalogue</b></div><span>→</span><div><small>Récompense</small><b id="prestigeReward">+1 héritage</b></div></div>
+    <button class="primary-button" id="confirmPrestige" type="button">Commencer la nouvelle génération</button>
+  </dialog>
+
+  <dialog id="helpDialog">
+    <button class="dialog-close" data-close="helpDialog" type="button" aria-label="Fermer">×</button>
+    <p class="eyebrow">Guide de l’éditeur</p><h2>Créer, distribuer, grandir</h2>
+    <ol>
+      <li>Clique sur le développeur pour fabriquer tes premières copies.</li>
+      <li>Les copies sont vendues automatiquement selon la capacité de distribution.</li>
+      <li>Le stock indique uniquement les copies qui attendent encore un acheteur. Les ventes et les royalties sont affichées séparément.</li>
+      <li>Achète des consoles : elles produisent continuellement de nouvelles copies.</li>
+      <li>Recrute des spécialistes. Une équipe équilibrée détermine davantage la qualité qu’un gros budget.</li>
+      <li>Lorsqu’un pitch est disponible, choisis un genre, un budget et jusqu’à trois plateformes. Chaque portage demande du temps mais élargit le public.</li>
+      <li>Choisis une campagne marketing : elle augmente l’audience, mais une forte promotion rend aussi la presse plus exigeante.</li>
+      <li>Un projet en cours peut être annulé depuis la carte du studio. Le remboursement diminue de 65 % à 20 % de l’investissement à mesure que le développement avance.</li>
+      <li>Une nouvelle licence fonde une franchise. Une suite profite de ses fans, mais les épisodes trop nombreux peuvent lasser le public.</li>
+      <li>Chaque jeu publié augmente l’expérience de son genre. Les niveaux demandent progressivement plusieurs sorties.</li>
+      <li>Les tendances du marché changent régulièrement et modifient les royalties.</li>
+      <li>À la sortie, trois critiques rendent leur verdict. Leur moyenne construit la réputation du studio.</li>
+      <li>Les événements du studio proposent des décisions aux conséquences temporaires. Les trophées débloquent des bonus permanents.</li>
+      <li>Pour terminer le jeu, crée un chef-d’œuvre noté au moins 90 par la presse et les joueurs dans chacun des 18 genres, puis remplis les conditions du Projet Ultime.</li>
+      <li>L’héritage renforce la production selon la formule ×(1 + 0,20 × √héritage).</li>
+    </ol>
+    <p>La partie est sauvegardée automatiquement et restitue jusqu’à huit heures de progression hors ligne.</p>
+    <div class="save-actions"><button id="exportSave" type="button">Exporter</button><button id="importSave" type="button">Importer</button><button id="effectsButton" type="button">Réduire les animations</button></div>
+    <button class="reset-button" id="resetButton" type="button">Effacer définitivement la sauvegarde</button>
+  </dialog>
+
+  <dialog id="reviewDialog" class="review-dialog">
+    <button class="dialog-close" data-close="reviewDialog" type="button" aria-label="Fermer">×</button>
+    <p class="eyebrow">Verdict de la presse</p><h2 id="reviewGameTitle">Le jeu est sorti !</h2>
+    <div class="review-scores"><div><small>Presse</small><b id="reviewPressScore">—</b><span>/100</span></div><div><small>Joueurs</small><b id="reviewPlayerScore">—</b><span>/100</span></div></div>
+    <div class="review-list" id="reviewList"></div>
+    <p class="reputation-change" id="reviewReputationChange"></p>
+    <div class="release-awards" id="releaseAwards" hidden></div>
+    <button class="primary-button" data-close="reviewDialog" type="button">Retour au studio</button>
+  </dialog>
+
+  <dialog id="eventDialog" class="event-dialog">
+    <div class="event-icon" id="eventIcon">✦</div><p class="eyebrow">Événement du studio</p><h2 id="eventTitle">Une occasion inattendue</h2>
+    <p class="event-description" id="eventDescription"></p>
+    <div class="event-choices" id="eventChoices"></div>
+  </dialog>
+
+  <dialog id="endingDialog" class="ending-dialog">
+    <div class="ending-stars">✦ ★ ✦</div><p class="eyebrow">Pixel Empire</p><h2>L’histoire retiendra ton studio</h2>
+    <p>Avec <strong>L’Ultime Pixel</strong>, chaque genre, chaque équipe et chaque génération se rejoignent dans une œuvre parfaite.</p>
+    <div class="ending-score"><span>100</span><small>Presse</small><span>100</span><small>Joueurs</small></div>
+    <p class="ending-summary" id="endingSummary"></p>
+    <button class="primary-button" data-close="endingDialog" type="button">Continuer en mode libre</button>
+  </dialog>
+
+  <input id="importFile" type="file" accept="application/json" hidden>
+  <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+  <div class="achievement" id="achievement" role="status" aria-live="polite" hidden><span>★</span><div><small>Palier atteint</small><b></b></div></div>
+  <script src="app.js"></script>
+</body>
+</html>

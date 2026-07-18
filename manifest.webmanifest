@@ -1,0 +1,16 @@
+{
+  "name": "Pixel Empire",
+  "short_name": "Pixel Empire",
+  "description": "Un jeu incrémental de création et de vente de jeux vidéo.",
+  "lang": "fr",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#17152f",
+  "theme_color": "#17152f",
+  "icons": [
+    {"src": "icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any"},
+    {"src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any"},
+    {"src": "icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable"}
+  ]
+}
