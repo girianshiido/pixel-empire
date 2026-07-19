@@ -62,6 +62,11 @@
           </button>
         </div>
         <p class="click-value">Développement manuel <b>+<span id="perClick">1</span> copie</b><small id="manualShare">Valeur fixe</small></p>
+        <section class="combo-card" id="comboCard" aria-live="polite">
+          <div><span id="comboLabel">Cadence</span><b id="comboStatus">0 / 20</b></div>
+          <div class="combo-track"><i id="comboFill"></i></div>
+          <small id="comboHint">20 clics en 6 secondes déclenchent Focus ×2.</small>
+        </section>
 
         <section class="sales-card">
           <div class="sales-top"><span>Distribution automatique</span><b id="salesCapacity">0 copie/s</b></div>
@@ -74,6 +79,10 @@
           <strong id="projectTitle">Le premier pitch arrive…</strong>
           <p id="projectDescription">Choisis bientôt son genre et son budget.</p>
           <div class="project-progress"><i id="projectFill"></i></div>
+          <div class="project-boosts" id="projectBoosts" hidden>
+            <small id="projectClickBoost">Chaque clic aide aussi le projet.</small>
+            <button id="projectRushButton" type="button">Financer des renforts</button>
+          </div>
           <button id="projectButton" type="button" disabled>Préparer le pitch</button>
         </section>
 
@@ -111,8 +120,16 @@
 
         <div class="tab-page" id="upgradesPage" hidden>
           <div class="panel-head"><div><p class="eyebrow">R&amp;D et marketing</p><h1>Améliorations du studio</h1><small>Les améliorations achetées disparaissent de la liste.</small></div></div>
+          <section class="archive-lab">
+            <div class="subsection-head"><div><p class="eyebrow">Transmis entre les générations</p><h2>Archives d’héritage</h2></div><div class="archive-balance"><small>Disponibles</small><b>◆ <span id="archivePoints">0</span></b></div></div>
+            <p class="archive-intro">Chaque héritage gagné accorde aussi un point d’archives. Les dépenser ici ne réduit jamais le multiplicateur d’héritage.</p>
+            <div class="archive-grid" id="archiveGrid"></div>
+          </section>
+          <section class="studio-upgrades-section">
+            <div class="subsection-head"><div><p class="eyebrow">Achats de la génération</p><h2>Équipement du studio</h2></div><small>Débloqué par les revenus cumulés.</small></div>
           <div class="upgrade-list" id="upgradeList"></div>
           <div class="empty-state" id="upgradeEmpty" hidden><span>✓</span><strong>Tout est installé pour le moment</strong><p>De nouvelles améliorations apparaîtront avec les revenus du studio.</p></div>
+          </section>
         </div>
 
         <div class="tab-page" id="teamPage" hidden>
@@ -189,7 +206,7 @@
     <button class="dialog-close" data-close="helpDialog" type="button" aria-label="Fermer">×</button>
     <p class="eyebrow">Guide de l’éditeur</p><h2>Créer, distribuer, grandir</h2>
     <ol>
-      <li>Clique sur le développeur pour fabriquer tes premières copies.</li>
+      <li>Clique sur le développeur pour fabriquer tes premières copies. Une série de clics rapprochés déclenche un Focus qui multiplie temporairement chaque clic.</li>
       <li>Les copies sont vendues automatiquement selon la capacité de distribution.</li>
       <li>Le stock indique uniquement les copies qui attendent encore un acheteur. Les ventes et les royalties sont affichées séparément.</li>
       <li>Achète des consoles : elles produisent continuellement de nouvelles copies.</li>
@@ -197,11 +214,13 @@
       <li>Lorsqu’un pitch est disponible, choisis un genre, un budget et jusqu’à trois plateformes. Chaque portage demande du temps mais élargit le public.</li>
       <li>Choisis une campagne marketing : elle augmente l’audience, mais une forte promotion rend aussi la presse plus exigeante.</li>
       <li>Un projet en cours peut être annulé depuis la carte du studio. Le remboursement diminue de 65 % à 20 % de l’investissement à mesure que le développement avance.</li>
+      <li>Pendant un projet, chaque clic accélère légèrement le développement. Des renforts coûteux peuvent aussi réduire une partie du temps restant.</li>
       <li>Une nouvelle licence fonde une franchise. Une suite profite de ses fans, mais les épisodes trop nombreux peuvent lasser le public.</li>
       <li>Chaque jeu publié augmente l’expérience de son genre. Les niveaux demandent progressivement plusieurs sorties.</li>
       <li>Les tendances du marché changent régulièrement et modifient les royalties.</li>
       <li>À la sortie, trois critiques rendent leur verdict. Leur moyenne construit la réputation du studio.</li>
       <li>Les événements du studio proposent des décisions aux conséquences temporaires. Les trophées débloquent des bonus permanents.</li>
+      <li>Une nouvelle génération accorde autant de points d’archives que d’héritages. Les archives financent des spécialisations permanentes sans réduire le multiplicateur.</li>
       <li>Pour terminer le jeu, crée un chef-d’œuvre noté au moins 90 par la presse et les joueurs dans chacun des 18 genres, puis remplis les conditions du Projet Ultime.</li>
       <li>L’héritage renforce la production selon la formule ×(1 + 0,20 × √héritage).</li>
     </ol>
