@@ -1,4 +1,4 @@
-const CACHE_NAME = "pixel-empire-v11";
+const CACHE_NAME = "pixel-empire-v12";
 const ASSETS = [
   "./",
   "./index.html",

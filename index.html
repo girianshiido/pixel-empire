@@ -202,19 +202,23 @@
   <dialog id="prestigeDialog">
     <button class="dialog-close" data-close="prestigeDialog" type="button" aria-label="Fermer">×</button>
     <div class="prestige-star">★</div><p class="eyebrow">Progression permanente</p><h2>Centre de l’héritage</h2>
-    <p class="heritage-intro">L’héritage mesure tout ce que les générations précédentes ont transmis au studio.</p>
+    <p class="heritage-intro">L’Héritage actif accélère tout le studio. Chaque point investi dans une Archive permanente disparaît de ce multiplicateur.</p>
     <div class="heritage-summary">
-      <div><small>Héritage total</small><b>★ <span id="heritageTotal">0</span></b></div>
+      <div><small>Héritage actif</small><b>★ <span id="heritageTotal">0</span></b></div>
       <div><small>Multiplicateur</small><b id="heritageMultiplier">×1,00</b></div>
-      <div><small>Archives disponibles</small><b>◆ <span id="archivePoints">0</span></b></div>
-      <div><small>Archives investies</small><b id="archiveSpent">0</b></div>
+      <div><small>Archives acquises</small><b id="archiveSpent">0 / 16</b></div>
       <div><small>Revenus de cette génération</small><b id="heritageRunRevenue">0 ¤</b></div>
       <div><small>Prochaine transmission</small><b id="heritageNextGain">+0</b></div>
     </div>
     <section class="archive-lab">
-      <div class="subsection-head"><div><p class="eyebrow">Transmis entre les générations</p><h2>Archives d’héritage</h2></div></div>
-      <p class="archive-intro">Chaque héritage gagné accorde aussi un point d’archives. Les dépenser ne réduit jamais le multiplicateur d’héritage.</p>
+      <div class="subsection-head"><div><p class="eyebrow">Transmis entre les générations</p><h2>Archives d’héritage</h2></div><div class="archive-balance"><small>Solde actif</small><b>★ <span id="archivePoints">0</span></b></div></div>
+      <p class="archive-intro">Les quatre premiers investissements coûtent 1 point et dépassent chacun le bonus général ×1,20 sacrifié. Les achats suivants demandent un engagement beaucoup plus important.</p>
       <div class="archive-grid" id="archiveGrid"></div>
+    </section>
+    <section class="automation-controls" id="automationControls">
+      <div><p class="eyebrow">Gestion déléguée</p><h3>Automatismes du studio</h3><small>Chaque assistant conserve toujours 20 % de la trésorerie.</small></div>
+      <button id="autoResearchToggle" type="button" disabled>Assistant R&amp;D · verrouillé</button>
+      <button id="autoMilestonesToggle" type="button" disabled>Intendant du parc · verrouillé</button>
     </section>
     <section class="heritage-reset">
     <p class="eyebrow">Nouvelle génération</p><h3>Transformer le succès en héritage ?</h3>
@@ -244,9 +248,10 @@
       <li>Les tendances du marché changent régulièrement et modifient les royalties.</li>
       <li>À la sortie, trois critiques rendent leur verdict. Leur moyenne construit la réputation du studio.</li>
       <li>Les événements du studio proposent des décisions aux conséquences temporaires. Les trophées débloquent des bonus permanents.</li>
-      <li>Une nouvelle génération accorde autant de points d’archives que d’héritages. Ouvre le centre Héritage en touchant l’étoile en haut de l’écran pour financer des spécialisations permanentes.</li>
+      <li>Une nouvelle génération accorde de l’Héritage actif. Le conserver augmente production et clics ; l’investir dans une Archive permanente réduit ce multiplicateur.</li>
+      <li>La branche Automatismes peut acheter seule la R&amp;D et les optimisations de paliers, tout en conservant 20 % de la trésorerie.</li>
       <li>Pour terminer le jeu, crée un chef-d’œuvre noté au moins 90 par la presse et les joueurs dans chacun des 18 genres, puis remplis les conditions du Projet Ultime.</li>
-      <li>L’héritage renforce la production selon la formule ×(1 + 0,20 × √héritage).</li>
+      <li>L’Héritage actif renforce la production selon la formule ×(1 + 0,20 × √héritage actif). Les gains de génération ralentissent selon tout l’Héritage déjà transmis.</li>
     </ol>
     <p>La partie est sauvegardée automatiquement et restitue jusqu’à huit heures de progression hors ligne.</p>
     <div class="save-actions"><button id="exportSave" type="button">Exporter</button><button id="importSave" type="button">Importer</button><button id="effectsButton" type="button">Réduire les animations</button></div>
