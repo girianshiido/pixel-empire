@@ -15,6 +15,7 @@ Un jeu incrémental en français consacré à la création, à l’édition et �
 - faire progresser chaque branche sans sauter d’étape : Junior, Confirmé, Expert, Star puis Légende ;
 - annuler un projet en cours contre un remboursement partiel qui diminue avec son avancement ;
 - accélérer un développement par le prototypage manuel ou en finançant des renforts coûteux ;
+- débloquer une file de production, payer plusieurs projets à l’avance et les lancer automatiquement dans l’ordre ;
 - choisir parmi six campagnes marketing, plus puissantes mais susceptibles de créer une surpromesse ;
 - découvrir à chaque sortie les notes de trois critiques, l’avis des joueurs et l’évolution de la réputation du studio ;
 - prendre des décisions lors d’événements du studio et exploiter leurs effets temporaires ;
@@ -33,6 +34,8 @@ Un budget élevé demande plus de temps de développement, mais offre davantage 
 Un portage multiplateforme coûte également plus cher et prend plus de temps, en échange d’un public élargi. Les suites profitent de la notoriété de leur franchise, mais leur coût augmente de 15 %, leur délai de 10 % et une série trop longue peut fatiguer le public.
 
 Le développement manuel reste utile grâce à plusieurs améliorations qui ajoutent progressivement une part de la production automatique à chaque clic. Vingt clics rapprochés déclenchent d’abord un Focus ×2 ; les recherches tardives font évoluer cette cadence jusqu’à ×5. Pendant la création d’un jeu, les clics peuvent aussi supprimer jusqu’à 30 % de sa durée et deux renforts financiers réduisent une partie du temps restant.
+
+Le Bureau de production débloque une première place d’attente, puis le Calendrier interstellaire en ajoute une seconde. La Mémoire de production des Archives ajoute une troisième place potentielle, permanente entre les générations. Un projet planifié est payé immédiatement, conserve l’équipe et les bonus choisis, puis son compte à rebours commence uniquement lorsqu’il atteint la tête de la file.
 
 Les gains d’Héritage progressent logarithmiquement selon les crédits obtenus pendant la génération, puis leur bonus permanent utilise un rendement décroissant : `×(1 + 0,20 × √Héritage)`. Chaque point d’Héritage gagné accorde parallèlement un point d’archives dépensable dans les branches Industrie, Création, Commerce et Technique. Dépenser une archive ne diminue jamais le total d’Héritage.
 

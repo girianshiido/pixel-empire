@@ -86,6 +86,13 @@
           <button id="projectButton" type="button" disabled>Préparer le pitch</button>
         </section>
 
+        <section class="production-queue" id="productionQueue" hidden>
+          <div class="production-queue-head"><span>🗂️ File de production</span><b id="queueCapacity">0 / 0</b></div>
+          <p id="queueHint">Les projets planifiés démarrent automatiquement dans l’ordre.</p>
+          <div class="queue-list" id="queueList"></div>
+          <button id="queueAddButton" type="button">Planifier un jeu</button>
+        </section>
+
         <section class="studio-stats">
           <div><span>Copies produites</span><b id="lifetimeCopies">0</b></div>
           <div><span>Copies vendues</span><b id="copiesSold">0</b></div>
@@ -172,7 +179,7 @@
 
   <dialog id="projectDialog" class="project-dialog">
     <button class="dialog-close" data-close="projectDialog" type="button" aria-label="Fermer">×</button>
-    <p class="eyebrow">Nouveau projet</p><h2>Quel jeu allons-nous créer ?</h2>
+    <p class="eyebrow" id="projectDialogEyebrow">Nouveau projet</p><h2 id="projectDialogTitle">Quel jeu allons-nous créer ?</h2>
     <div class="trend-callout"><span>↗ Marché</span><b id="dialogTrend">—</b></div>
     <label class="field-label" for="genreSelect">Genre</label>
     <select id="genreSelect"></select>
@@ -215,6 +222,7 @@
       <li>Choisis une campagne marketing : elle augmente l’audience, mais une forte promotion rend aussi la presse plus exigeante.</li>
       <li>Un projet en cours peut être annulé depuis la carte du studio. Le remboursement diminue de 65 % à 20 % de l’investissement à mesure que le développement avance.</li>
       <li>Pendant un projet, chaque clic accélère légèrement le développement. Des renforts coûteux peuvent aussi réduire une partie du temps restant.</li>
+      <li>La recherche avancée débloque une file de production : les projets y sont payés et préparés à l’avance, puis démarrent automatiquement dans l’ordre. Une archive technique ajoute une place permanente.</li>
       <li>Une nouvelle licence fonde une franchise. Une suite profite de ses fans, mais les épisodes trop nombreux peuvent lasser le public.</li>
       <li>Chaque jeu publié augmente l’expérience de son genre. Les niveaux demandent progressivement plusieurs sorties.</li>
       <li>Les tendances du marché changent régulièrement et modifient les royalties.</li>
