@@ -43,7 +43,7 @@
       <div class="resource-divider optional-divider"></div>
       <div class="critic-resource"><small>Réputation presse</small><strong><span id="criticReputation">0</span>/100</strong></div>
       <div class="resource-divider optional-divider"></div>
-      <div class="reputation-resource"><small>Héritage</small><strong>★ <span id="reputationCount">0</span></strong></div>
+      <button class="reputation-resource" id="heritageButton" type="button" aria-label="Ouvrir le centre de l’héritage"><small>Héritage</small><strong>★ <span id="reputationCount">0</span></strong></button>
     </section>
 
     <button class="trend-banner" id="trendBanner" type="button">
@@ -127,10 +127,9 @@
 
         <div class="tab-page" id="upgradesPage" hidden>
           <div class="panel-head"><div><p class="eyebrow">R&amp;D et marketing</p><h1>Améliorations du studio</h1><small>Les améliorations achetées disparaissent de la liste.</small></div></div>
-          <section class="archive-lab">
-            <div class="subsection-head"><div><p class="eyebrow">Transmis entre les générations</p><h2>Archives d’héritage</h2></div><div class="archive-balance"><small>Disponibles</small><b>◆ <span id="archivePoints">0</span></b></div></div>
-            <p class="archive-intro">Chaque héritage gagné accorde aussi un point d’archives. Les dépenser ici ne réduit jamais le multiplicateur d’héritage.</p>
-            <div class="archive-grid" id="archiveGrid"></div>
+          <section class="milestone-upgrades-section" id="milestoneUpgradeSection">
+            <div class="subsection-head"><div><p class="eyebrow">Parc à optimiser</p><h2>Optimisations de paliers</h2></div><small id="milestoneUpgradeHint">Atteins 10 consoles d’un modèle pour débloquer sa première optimisation.</small></div>
+            <div class="upgrade-list milestone-upgrade-list" id="milestoneUpgradeList"></div>
           </section>
           <section class="studio-upgrades-section">
             <div class="subsection-head"><div><p class="eyebrow">Achats de la génération</p><h2>Équipement du studio</h2></div><small>Débloqué par les revenus cumulés.</small></div>
@@ -202,11 +201,28 @@
 
   <dialog id="prestigeDialog">
     <button class="dialog-close" data-close="prestigeDialog" type="button" aria-label="Fermer">×</button>
-    <div class="prestige-star">★</div><p class="eyebrow">Nouvelle génération</p><h2>Transformer le succès en héritage ?</h2>
+    <div class="prestige-star">★</div><p class="eyebrow">Progression permanente</p><h2>Centre de l’héritage</h2>
+    <p class="heritage-intro">L’héritage mesure tout ce que les générations précédentes ont transmis au studio.</p>
+    <div class="heritage-summary">
+      <div><small>Héritage total</small><b>★ <span id="heritageTotal">0</span></b></div>
+      <div><small>Multiplicateur</small><b id="heritageMultiplier">×1,00</b></div>
+      <div><small>Archives disponibles</small><b>◆ <span id="archivePoints">0</span></b></div>
+      <div><small>Archives investies</small><b id="archiveSpent">0</b></div>
+      <div><small>Revenus de cette génération</small><b id="heritageRunRevenue">0 ¤</b></div>
+      <div><small>Prochaine transmission</small><b id="heritageNextGain">+0</b></div>
+    </div>
+    <section class="archive-lab">
+      <div class="subsection-head"><div><p class="eyebrow">Transmis entre les générations</p><h2>Archives d’héritage</h2></div></div>
+      <p class="archive-intro">Chaque héritage gagné accorde aussi un point d’archives. Les dépenser ne réduit jamais le multiplicateur d’héritage.</p>
+      <div class="archive-grid" id="archiveGrid"></div>
+    </section>
+    <section class="heritage-reset">
+    <p class="eyebrow">Nouvelle génération</p><h3>Transformer le succès en héritage ?</h3>
     <p>Le studio repart avec une nouvelle équipe. Les niveaux de genres, les succès et l’héritage sont conservés.</p>
     <p class="prestige-note" id="prestigeNote">L’héritage renforce durablement la production, avec un rendement décroissant.</p>
     <div class="prestige-equation"><div><small>Réinitialisé</small><b>Crédits, équipe,<br>consoles et catalogue</b></div><span>→</span><div><small>Récompense</small><b id="prestigeReward">+1 héritage</b></div></div>
     <button class="primary-button" id="confirmPrestige" type="button">Commencer la nouvelle génération</button>
+    </section>
   </dialog>
 
   <dialog id="helpDialog">
@@ -216,7 +232,7 @@
       <li>Clique sur le développeur pour fabriquer tes premières copies. Une série de clics rapprochés déclenche un Focus qui multiplie temporairement chaque clic.</li>
       <li>Les copies sont vendues automatiquement selon la capacité de distribution.</li>
       <li>Le stock indique uniquement les copies qui attendent encore un acheteur. Les ventes et les royalties sont affichées séparément.</li>
-      <li>Achète des consoles : elles produisent continuellement de nouvelles copies.</li>
+      <li>Achète des consoles : elles produisent continuellement de nouvelles copies. À 10, 25, 50 et 100 exemplaires, une optimisation payante peut doubler la production du modèle.</li>
       <li>Recrute des spécialistes. Une équipe équilibrée détermine davantage la qualité qu’un gros budget.</li>
       <li>Lorsqu’un pitch est disponible, choisis un genre, un budget et jusqu’à trois plateformes. Chaque portage demande du temps mais élargit le public.</li>
       <li>Choisis une campagne marketing : elle augmente l’audience, mais une forte promotion rend aussi la presse plus exigeante.</li>
@@ -228,7 +244,7 @@
       <li>Les tendances du marché changent régulièrement et modifient les royalties.</li>
       <li>À la sortie, trois critiques rendent leur verdict. Leur moyenne construit la réputation du studio.</li>
       <li>Les événements du studio proposent des décisions aux conséquences temporaires. Les trophées débloquent des bonus permanents.</li>
-      <li>Une nouvelle génération accorde autant de points d’archives que d’héritages. Les archives financent des spécialisations permanentes sans réduire le multiplicateur.</li>
+      <li>Une nouvelle génération accorde autant de points d’archives que d’héritages. Ouvre le centre Héritage en touchant l’étoile en haut de l’écran pour financer des spécialisations permanentes.</li>
       <li>Pour terminer le jeu, crée un chef-d’œuvre noté au moins 90 par la presse et les joueurs dans chacun des 18 genres, puis remplis les conditions du Projet Ultime.</li>
       <li>L’héritage renforce la production selon la formule ×(1 + 0,20 × √héritage).</li>
     </ol>
